@@ -37,9 +37,10 @@ If your site blocks external scripts, you can use this method instead:
 You can also add the full calculator HTML directly to your own webpage for full customization.
 Just paste the raw code from index.html
  into your site’s HTML editor. 
+
+💡 This option is ideal if you want to make any edits to the style or layout to fit your website overall.
  
-💡 This option is ideal if you want to make any edits to the style or layout to fit your website overall. 
----
+ ---
 
 ## Features
 - Adjustable sliders for treatment cost, initial payment, and term length  
