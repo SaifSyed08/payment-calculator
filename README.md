@@ -5,8 +5,8 @@ It lets users estimate their monthly payments based on treatment cost, initial p
 
 ---
   
-## Demo the App
- **[View on Github Pages](https://saifsyed08.github.io/payment-calculator/)**
+## Github Pages Link
+⭐ **[Try the App Here](https://saifsyed08.github.io/payment-calculator/)**
 
 ---
 
@@ -38,3 +38,6 @@ Just paste the raw code from index.html
 - Fully responsive, mobile-friendly monthly payment calculation  
 
 
+---
+
+Built by [Saif Syed](https://github.com/saifsyed08) —  
