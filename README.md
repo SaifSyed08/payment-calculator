@@ -22,6 +22,12 @@ Add this code to any website, WordPress page, or CMS that supports HTML:
   style="border:none; border-radius:10px;"
   loading="lazy"
 ></iframe>
+
+// OR
+
+<div id="payment-widget"></div>
+<script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
+
 ```
 
 ### **Option 2: Copy & Paste the Code Directly**
