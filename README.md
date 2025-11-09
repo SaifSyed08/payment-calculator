@@ -41,4 +41,3 @@ Just paste the raw code from index.html
 ---
 
 Tool authored by Saif Syed (2025) 
-
