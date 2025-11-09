@@ -6,7 +6,7 @@ It lets users estimate their monthly payments based on treatment cost, initial p
 ---
   
 ## Try the App
-👉 **[Web Demo](https://saifsyed08.github.io/payment-calculator/)**
+👉 **[View Demo Here](https://saifsyed08.github.io/payment-calculator/)**
 
 ---
 
