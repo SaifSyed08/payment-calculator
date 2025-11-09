@@ -36,7 +36,7 @@ You can also add the full calculator HTML directly to your own webpage.
 Just paste the raw code from index.html
  into your site’s HTML editor. 
 
-⭐ Note: This option allows for full customization, making it ideal if you want to make any style or layout edits to fit your website overall.
+⭐ Note: This option allows for full customization, making it ideal if you want to make any personal style or layout edits to fit your website overall.
  
  ---
 
