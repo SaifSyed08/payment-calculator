@@ -9,10 +9,3 @@
 
   document.currentScript.parentNode.insertBefore(iframe, document.currentScript);
 })();
-
-
-/*
-Embed this widget anywhere using:
-<div id="payment-widget"></div>
-<script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
-*/
