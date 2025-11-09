@@ -12,7 +12,7 @@ It lets users estimate their monthly payments based on treatment cost, initial p
 
 ## How to Embed This Widget Anywhere
 
-⭐ ### **Option 1: IFrame Embed (Easiest)**
+### **⭐ Option 1: IFrame Embed (Easiest)**
 Add this code to any website, WordPress page, or CMS that supports HTML:
 ```html
 <iframe
