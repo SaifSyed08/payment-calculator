@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Treatment Payment Calculator</title>
+  <style>
+    .custom-treatments-payment-calculator {
+      border-top: 1px solid #ccc;
+      margin: 30px 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .custom-treatments-payment-calculator__title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .custom-treatments-payment-calculator__description {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .custom-treatments-payment-calculator__slider {
+      margin: 20px 0;
+    }
+
+    .custom-treatments-payment-calculator__slider label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .custom-treatments-payment-calculator__slider input[type="range"] {
+      width: 100%;
+    }
+
+    .custom-treatments-payment-calculator__result {
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .custom-treatments-payment-calculator__amount {
+      color: #e54b2c;
+    }
+
+    .custom-treatments-payment-calculator__benefit-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .custom-treatments-payment-calculator__benefit-buttons button {
+      background-color: #fff;
+      border: 2px solid #e54b2c;
+      color: #e54b2c;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 600;
+    }
+
+    .custom-treatments-payment-calculator__benefit-buttons button:hover {
+      background-color: #e54b2c;
+      color: #fff;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="custom-treatments-payment-calculator" id="calculator">
+    <h2 class="custom-treatments-payment-calculator__title">Payment Calculator</h2>
+    <p class="custom-treatments-payment-calculator__description">
+      Would you like to estimate your treatment cost? We offer flexible payment options
+      including low down payments and no-interest financing. Try our payment calculator
+      to find a plan right for you.
+    </p>
+
+    <!-- Treatment Cost -->
+    <div class="custom-treatments-payment-calculator__slider">
+      <label for="treatmentCost">Treatment Cost: $<span id="treatmentCostValue">5500</span></label>
+      <input type="range" id="treatmentCost" min="1000" max="6000" step="100" value="5500" />
+    </div>
+
+    <!-- Initial Payment -->
+    <div class="custom-treatments-payment-calculator__slider">
+      <label for="initialPayment">Initial Payment: $<span id="initialPaymentValue">3000</span></label>
+      <input type="range" id="initialPayment" min="0" max="5000" step="100" value="3000" />
+    </div>
+
+    <!-- Term Length -->
+    <div class="custom-treatments-payment-calculator__slider">
+      <label for="termLength">Term Length: <span id="termLengthValue">11</span> months</label>
+      <input type="range" id="termLength" min="1" max="36" step="1" value="11" />
+    </div>
+
+    <!-- Insurance Benefit -->
+    <div class="custom-treatments-payment-calculator__slider hidden" id="insuranceSlider">
+      <label for="insuranceValue">Insurance Benefit: $<span id="insuranceValueDisplay">500</span></label>
+      <input type="range" id="insuranceValue" min="0" max="3000" step="100" value="500" />
+    </div>
+
+    <!-- Promotion Benefit -->
+    <div class="custom-treatments-payment-calculator__slider hidden" id="promotionSlider">
+      <label for="promotionValue">Promotion Benefit: $<span id="promotionValueDisplay">250</span></label>
+      <input type="range" id="promotionValue" min="0" max="2000" step="100" value="250" />
+    </div>
+
+    <!-- Monthly Payment -->
+    <div class="custom-treatments-payment-calculator__result">
+      Monthly Payment:
+      <span class="custom-treatments-payment-calculator__amount" id="monthlyPayment">$0.00 / month</span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="custom-treatments-payment-calculator__benefit-buttons">
+      <button id="toggleInsurance">Add Insurance Benefit</button>
+      <button id="togglePromotion">Add Promotion Benefit</button>
+    </div>
+  </div>
+
+  <script>
+    const elements = {
+      treatmentCost: document.getElementById("treatmentCost"),
+      treatmentCostValue: document.getElementById("treatmentCostValue"),
+      initialPayment: document.getElementById("initialPayment"),
+      initialPaymentValue: document.getElementById("initialPaymentValue"),
+      termLength: document.getElementById("termLength"),
+      termLengthValue: document.getElementById("termLengthValue"),
+      insuranceValue: document.getElementById("insuranceValue"),
+      insuranceValueDisplay: document.getElementById("insuranceValueDisplay"),
+      promotionValue: document.getElementById("promotionValue"),
+      promotionValueDisplay: document.getElementById("promotionValueDisplay"),
+      insuranceSlider: document.getElementById("insuranceSlider"),
+      promotionSlider: document.getElementById("promotionSlider"),
+      toggleInsurance: document.getElementById("toggleInsurance"),
+      togglePromotion: document.getElementById("togglePromotion"),
+      monthlyPayment: document.getElementById("monthlyPayment")
+    };
+
+    let showInsurance = false;
+    let showPromotion = false;
+
+    function calculatePayment() {
+      const treatmentCost = parseFloat(elements.treatmentCost.value);
+      const initialPayment = parseFloat(elements.initialPayment.value);
+      const termLength = parseInt(elements.termLength.value);
+
+      const insuranceValue = showInsurance ? parseFloat(elements.insuranceValue.value) : 0;
+      const promotionValue = showPromotion ? parseFloat(elements.promotionValue.value) : 0;
+
+      const netCost = treatmentCost - initialPayment - insuranceValue - promotionValue;
+      const monthly = termLength > 0 ? Math.max(netCost / termLength, 0) : 0;
+      elements.monthlyPayment.textContent = `$${monthly.toFixed(2)} / month`;
+    }
+
+    function updateLabels() {
+      elements.treatmentCostValue.textContent = elements.treatmentCost.value;
+      elements.initialPaymentValue.textContent = elements.initialPayment.value;
+      elements.termLengthValue.textContent = elements.termLength.value;
+      elements.insuranceValueDisplay.textContent = elements.insuranceValue.value;
+      elements.promotionValueDisplay.textContent = elements.promotionValue.value;
+      calculatePayment();
+    }
+
+    elements.treatmentCost.addEventListener("input", updateLabels);
+    elements.initialPayment.addEventListener("input", updateLabels);
+    elements.termLength.addEventListener("input", updateLabels);
+    elements.insuranceValue.addEventListener("input", updateLabels);
+    elements.promotionValue.addEventListener("input", updateLabels);
+
+    elements.toggleInsurance.addEventListener("click", () => {
+      showInsurance = !showInsurance;
+      elements.insuranceSlider.classList.toggle("hidden", !showInsurance);
+      elements.toggleInsurance.textContent = showInsurance
+        ? "Remove Insurance Benefit"
+        : "Add Insurance Benefit";
+      calculatePayment();
+    });
+
+    elements.togglePromotion.addEventListener("click", () => {
+      showPromotion = !showPromotion;
+      elements.promotionSlider.classList.toggle("hidden", !showPromotion);
+      elements.togglePromotion.textContent = showPromotion
+        ? "Remove Promotion Benefit"
+        : "Add Promotion Benefit";
+      calculatePayment();
+    });
+
+    // Initialize
+    updateLabels();
+  </script>
+</body>
+</html>
