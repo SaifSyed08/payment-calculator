@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
+
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Treatment Payment Calculator</title>
-  <style>
+     <style>
+    
     .custom-treatments-payment-calculator {
       border-top: 1px solid #ccc;
       margin: 30px 0;
       padding: 20px;
-      font-family: Arial, sans-serif;
+     
+      font-family: "Outfit", sans-serif;
+
+
     }
+	
 
     .custom-treatments-payment-calculator__title {
       font-size: 1.8rem;
       margin-bottom: 10px;
+      font-family: "Outfit", sans-serif;
+      color: #006FBA;
     }
 
     .custom-treatments-payment-calculator__description {
       margin-bottom: 20px;
       font-size: 1rem;
       line-height: 1.4;
+      max-width: 800px;        /* keeps text at an optimal reading width */
     }
 
     .custom-treatments-payment-calculator__slider {
       margin: 20px 0;
+      
     }
 
     .custom-treatments-payment-calculator__slider label {
@@ -36,6 +49,8 @@
     .custom-treatments-payment-calculator__slider input[type="range"] {
       width: 100%;
       max-width: 800px;
+      
+    
     }
 
     .custom-treatments-payment-calculator__result {
@@ -68,10 +83,15 @@
       background-color: #e54b2c;
       color: #fff;
     }
+    button, input, label, span, div, h2, p {
+  		font-family: 'Outfit', sans-serif !important;
+	}
+
 
     .hidden {
       display: none;
     }
+    
   </style>
 </head>
 <body>
