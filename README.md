@@ -10,7 +10,7 @@ It lets users estimate their monthly payments based on treatment cost, initial p
 
 ---
 
-## How to Embed This Widget Anywhere (In Order of Complexity) 
+## How to Embed This Widget Anywhere
 
 ### **⭐ Option 1: JavaScript Widget (Easiest)**
 Embed the calculator anywhere with just two lines of code:
