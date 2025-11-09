@@ -40,4 +40,5 @@ Just paste the raw code from index.html
 
 ---
 
-Built by [Saif Syed](https://github.com/saifsyed08) —  
+**Author:** [Saif Syed](https://github.com/saifsyed08)  
+
