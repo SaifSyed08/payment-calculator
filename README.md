@@ -18,7 +18,6 @@ Embed the calculator anywhere with just two lines of code:
 <div id="payment-widget"></div>
 <script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
 ```
-This option automatically updates with the source code. 
 ### **Option 2: iFrame Embed**
 If your site blocks external scripts, you can use this method instead:
 ```html
@@ -30,15 +29,14 @@ If your site blocks external scripts, you can use this method instead:
   loading="lazy"
 ></iframe>
 ```
-⚠️ This option does NOT automatically update with the source code. 
 
-### **Option 3: Copy & Paste the Code Directly (Most Customizable)**
+### **Option 3: Copy & Paste the Code Directly**
 
 You can also add the full calculator HTML directly to your own webpage.
 Just paste the raw code from index.html
  into your site’s HTML editor. 
 
-💡 This approach is ideal if you want to edit the style or layout to fit your website overall.
+ This option allows for full customization, which is ideal for making any style or layout edits to fit your website overall.
  
  ---
 
