@@ -30,7 +30,7 @@ If your site blocks external scripts, you can use this method instead:
   loading="lazy"
 ></iframe>
 ```
-⚠️ This option is also simple, but does NOT automatically update with the source code. 
+This option is simple, but does NOT automatically update with the source code. 
 
 ### **Option 3: Copy & Paste the Code Directly**
 
