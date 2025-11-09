@@ -30,13 +30,13 @@ If your site blocks external scripts, you can use this method instead:
 ></iframe>
 ```
 
-### **💡 Option 3: Copy & Paste the Code Directly**
+### **Option 3: Copy & Paste the Code Directly**
 
 You can also add the full calculator HTML directly to your own webpage.
 Just paste the raw code from index.html
  into your site’s HTML editor. 
 
- ⭐ This option allows for full customization, which is ideal for making any style or layout edits to fit your website overall.
+💡 This option allows for full customization, which is ideal for making any style or layout edits to fit your website overall.
  
  ---
 
