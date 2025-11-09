@@ -23,7 +23,7 @@ Add this code to any website, WordPress page, or CMS that supports HTML:
   loading="lazy"
 ></iframe>
 
-// OR
+<!-- OR --!>
 
 <div id="payment-widget"></div>
 <script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
