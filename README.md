@@ -5,11 +5,6 @@ It lets users estimate their monthly payments based on treatment cost, initial p
 
 ---
 
-## 🚀 Live Demo
-👉 **[View on GitHub Pages](https://saifsyed08.github.io/payment-calculator/)**
-
----
-
 ## 🧠 How to Embed This Widget Anywhere
 
 ### **Option 1: IFrame Embed**
@@ -38,3 +33,8 @@ Just paste the raw code from index.html
 - Dynamic **monthly payment calculation**  
 - Fully responsive, mobile-friendly design  
 - Built to work as a **standalone widget** or embedded component
+
+---
+  
+## 🚀 Live Demo
+👉 **[View on GitHub Pages](https://saifsyed08.github.io/payment-calculator/)**
