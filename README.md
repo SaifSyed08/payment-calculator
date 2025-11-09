@@ -4,6 +4,11 @@ An embeddable, interactive payment calculator widget built with HTML, CSS, and  
 It lets users estimate their monthly payments based on treatment cost, initial payment, and optional benefits like insurance or promotions.
 
 ---
+  
+## Try the App
+👉 **[Web Demo](https://saifsyed08.github.io/payment-calculator/)**
+
+---
 
 ## How to Embed This Widget Anywhere
 
@@ -32,7 +37,4 @@ Just paste the raw code from index.html
 - Optional insurance and promotion benefit sliders  
 - Fully responsive, mobile-friendly monthly payment calculation  
 
----
-  
-## 🚀 Live Demo
-👉 **[View on GitHub Pages](https://saifsyed08.github.io/payment-calculator/)**
+
