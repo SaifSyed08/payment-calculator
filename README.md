@@ -10,7 +10,7 @@ It lets users estimate their monthly payments based on treatment cost, initial p
 
 ---
 
-## How to Embed This Widget Anywhere
+## How to Embed This Widget Anywhere (In Order of Complexity) 
 
 ### **⭐ Option 1: JavaScript Widget (Easiest)**
 Embed the calculator anywhere with just two lines of code:
@@ -38,7 +38,7 @@ You can also add the full calculator HTML directly to your own webpage.
 Just paste the raw code from index.html
  into your site’s HTML editor. 
 
-💡 This option is ideal if you want to make any edits to the style or layout to fit your website overall.
+💡 This approach is ideal if you want to edit the style or layout to fit your website overall.
  
  ---
 
