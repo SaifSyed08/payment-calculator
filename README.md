@@ -40,5 +40,5 @@ Just paste the raw code from index.html
 
 ---
 
-Code authored by Saif Syed (2025) 
+Tool authored by Saif Syed (2025) 
 
