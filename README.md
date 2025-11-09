@@ -34,7 +34,7 @@ If your site blocks external scripts, you can use this method instead:
 
 ### **Option 3: Copy & Paste the Code Directly (Most Customizable)**
 
-You can also add the full calculator HTML directly to your own webpage for full customization.
+You can also add the full calculator HTML directly to your own webpage.
 Just paste the raw code from index.html
  into your site’s HTML editor. 
 
