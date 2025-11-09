@@ -12,8 +12,15 @@ It lets users estimate their monthly payments based on treatment cost, initial p
 
 ## How to Embed This Widget Anywhere
 
-### **⭐ Option 1: IFrame Embed (Easiest)**
-Add this code to any website, WordPress page, or CMS that supports HTML:
+### **⭐ Option 1: JavaScript Widget (Recommended)**
+Embed the calculator anywhere with just two lines of code:
+```html
+<div id="payment-widget"></div>
+<script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
+```
+This option automatically updates with the source code. 
+### **Option 2: iFrame Embed**
+If your site blocks external scripts, you can use this method instead:
 ```html
 <iframe
   src="https://saifsyed08.github.io/payment-calculator/"
@@ -22,17 +29,12 @@ Add this code to any website, WordPress page, or CMS that supports HTML:
   style="border:none; border-radius:10px;"
   loading="lazy"
 ></iframe>
-
-<!-- OR --!>
-
-<div id="payment-widget"></div>
-<script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
-
 ```
+⚠️ This option is also simple, but does NOT automatically update with the source code. 
 
-### **Option 2: Copy & Paste the Code Directly**
+### **Option 3: Copy & Paste the Code Directly**
 
-You can also add the full calculator HTML directly to your own webpage.
+For full customization, you can also add the full calculator HTML directly to your own webpage.
 Just paste the raw code from index.html
  into your site’s HTML editor.
  
