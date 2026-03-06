@@ -1,32 +1,25 @@
 <!-- 
-NOTE: You can also embed this widget to any HTML site using:
+Embed anywhere:
 <div id="payment-widget"></div>
 <script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
 -->
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
-
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Treatment Payment Calculator</title>
-     <style>
-    
+
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
     .custom-treatments-payment-calculator {
       border-top: 1px solid #ccc;
       margin: 30px 0;
       padding: 20px;
-     
       font-family: "Outfit", sans-serif;
-
-
     }
-	
 
     .custom-treatments-payment-calculator__title {
       font-size: 2.4rem;
@@ -38,12 +31,11 @@ NOTE: You can also embed this widget to any HTML site using:
       margin-bottom: 20px;
       font-size: 1rem;
       line-height: 1.4;
-      max-width: 800px;        /* keeps text at an optimal reading width */
+      max-width: 800px;
     }
 
     .custom-treatments-payment-calculator__slider {
       margin: 20px 0;
-      
     }
 
     .custom-treatments-payment-calculator__slider label {
@@ -55,8 +47,13 @@ NOTE: You can also embed this widget to any HTML site using:
     .custom-treatments-payment-calculator__slider input[type="range"] {
       width: 100%;
       max-width: 800px;
-      
-    
+    }
+
+    .custom-treatments-payment-calculator input[type="number"] {
+      width: 100px;
+      margin-left: 6px;
+      padding: 4px;
+      font-size: 0.95rem;
     }
 
     .custom-treatments-payment-calculator__result {
@@ -89,17 +86,17 @@ NOTE: You can also embed this widget to any HTML site using:
       background-color: #e54b2c;
       color: #fff;
     }
-    button, input, label, span, div, h2, p {
-  		font-family: 'Outfit', sans-serif !important;
-	}
 
+    button, input, label, span, div, h2, p {
+      font-family: 'Outfit', sans-serif !important;
+    }
 
     .hidden {
       display: none;
     }
-    
   </style>
 </head>
+
 <body>
   <div class="custom-treatments-payment-calculator" id="calculator">
     <h2 class="custom-treatments-payment-calculator__title">Payment Calculator</h2>
@@ -111,32 +108,48 @@ NOTE: You can also embed this widget to any HTML site using:
 
     <!-- Treatment Cost -->
     <div class="custom-treatments-payment-calculator__slider">
-      <label for="treatmentCost">Treatment Cost: $<span id="treatmentCostValue">5500</span></label>
-      <input type="range" id="treatmentCost" min="1000" max="6000" step="100" value="5500" />
+      <label>
+        Treatment Cost: $
+        <input type="number" id="treatmentCostInput" min="1000" max="6000" step="100" value="5500">
+      </label>
+      <input type="range" id="treatmentCost" min="1000" max="6000" step="100" value="5500">
     </div>
 
     <!-- Initial Payment -->
     <div class="custom-treatments-payment-calculator__slider">
-      <label for="initialPayment">Initial Payment: $<span id="initialPaymentValue">3000</span></label>
-      <input type="range" id="initialPayment" min="0" max="5000" step="100" value="3000" />
+      <label>
+        Initial Payment: $
+        <input type="number" id="initialPaymentInput" min="0" max="5000" step="100" value="3000">
+      </label>
+      <input type="range" id="initialPayment" min="0" max="5000" step="100" value="3000">
     </div>
 
     <!-- Term Length -->
     <div class="custom-treatments-payment-calculator__slider">
-      <label for="termLength">Term Length: <span id="termLengthValue">11</span> months</label>
-      <input type="range" id="termLength" min="1" max="36" step="1" value="11" />
+      <label>
+        Term Length:
+        <input type="number" id="termLengthInput" min="1" max="36" step="1" value="11">
+        months
+      </label>
+      <input type="range" id="termLength" min="1" max="36" step="1" value="11">
     </div>
 
     <!-- Insurance Benefit -->
     <div class="custom-treatments-payment-calculator__slider hidden" id="insuranceSlider">
-      <label for="insuranceValue">Insurance Benefit: $<span id="insuranceValueDisplay">500</span></label>
-      <input type="range" id="insuranceValue" min="0" max="3000" step="100" value="500" />
+      <label>
+        Insurance Benefit: $
+        <input type="number" id="insuranceValueInput" min="0" max="3000" step="100" value="500">
+      </label>
+      <input type="range" id="insuranceValue" min="0" max="3000" step="100" value="500">
     </div>
 
     <!-- Promotion Benefit -->
     <div class="custom-treatments-payment-calculator__slider hidden" id="promotionSlider">
-      <label for="promotionValue">Promotion Benefit: $<span id="promotionValueDisplay">250</span></label>
-      <input type="range" id="promotionValue" min="0" max="2000" step="100" value="250" />
+      <label>
+        Promotion Benefit: $
+        <input type="number" id="promotionValueInput" min="0" max="2000" step="100" value="250">
+      </label>
+      <input type="range" id="promotionValue" min="0" max="2000" step="100" value="250">
     </div>
 
     <!-- Monthly Payment -->
@@ -155,15 +168,15 @@ NOTE: You can also embed this widget to any HTML site using:
   <script>
     const elements = {
       treatmentCost: document.getElementById("treatmentCost"),
-      treatmentCostValue: document.getElementById("treatmentCostValue"),
+      treatmentCostInput: document.getElementById("treatmentCostInput"),
       initialPayment: document.getElementById("initialPayment"),
-      initialPaymentValue: document.getElementById("initialPaymentValue"),
+      initialPaymentInput: document.getElementById("initialPaymentInput"),
       termLength: document.getElementById("termLength"),
-      termLengthValue: document.getElementById("termLengthValue"),
+      termLengthInput: document.getElementById("termLengthInput"),
       insuranceValue: document.getElementById("insuranceValue"),
-      insuranceValueDisplay: document.getElementById("insuranceValueDisplay"),
+      insuranceValueInput: document.getElementById("insuranceValueInput"),
       promotionValue: document.getElementById("promotionValue"),
-      promotionValueDisplay: document.getElementById("promotionValueDisplay"),
+      promotionValueInput: document.getElementById("promotionValueInput"),
       insuranceSlider: document.getElementById("insuranceSlider"),
       promotionSlider: document.getElementById("promotionSlider"),
       toggleInsurance: document.getElementById("toggleInsurance"),
@@ -173,6 +186,21 @@ NOTE: You can also embed this widget to any HTML site using:
 
     let showInsurance = false;
     let showPromotion = false;
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function syncRangeToInput(range, input) {
+      input.value = range.value;
+    }
+
+    function syncInputToRange(input, range) {
+      const min = parseFloat(range.min);
+      const max = parseFloat(range.max);
+      input.value = clamp(input.value, min, max);
+      range.value = input.value;
+    }
 
     function calculatePayment() {
       const treatmentCost = parseFloat(elements.treatmentCost.value);
@@ -184,44 +212,39 @@ NOTE: You can also embed this widget to any HTML site using:
 
       const netCost = treatmentCost - initialPayment - insuranceValue - promotionValue;
       const monthly = termLength > 0 ? Math.max(netCost / termLength, 0) : 0;
+
       elements.monthlyPayment.textContent = `$${monthly.toFixed(2)} / month`;
     }
 
-    function updateLabels() {
-      elements.treatmentCostValue.textContent = elements.treatmentCost.value;
-      elements.initialPaymentValue.textContent = elements.initialPayment.value;
-      elements.termLengthValue.textContent = elements.termLength.value;
-      elements.insuranceValueDisplay.textContent = elements.insuranceValue.value;
-      elements.promotionValueDisplay.textContent = elements.promotionValue.value;
-      calculatePayment();
-    }
+    // Range → Input
+    elements.treatmentCost.addEventListener("input", () => { syncRangeToInput(elements.treatmentCost, elements.treatmentCostInput); calculatePayment(); });
+    elements.initialPayment.addEventListener("input", () => { syncRangeToInput(elements.initialPayment, elements.initialPaymentInput); calculatePayment(); });
+    elements.termLength.addEventListener("input", () => { syncRangeToInput(elements.termLength, elements.termLengthInput); calculatePayment(); });
+    elements.insuranceValue.addEventListener("input", () => { syncRangeToInput(elements.insuranceValue, elements.insuranceValueInput); calculatePayment(); });
+    elements.promotionValue.addEventListener("input", () => { syncRangeToInput(elements.promotionValue, elements.promotionValueInput); calculatePayment(); });
 
-    elements.treatmentCost.addEventListener("input", updateLabels);
-    elements.initialPayment.addEventListener("input", updateLabels);
-    elements.termLength.addEventListener("input", updateLabels);
-    elements.insuranceValue.addEventListener("input", updateLabels);
-    elements.promotionValue.addEventListener("input", updateLabels);
+    // Input → Range
+    elements.treatmentCostInput.addEventListener("input", () => { syncInputToRange(elements.treatmentCostInput, elements.treatmentCost); calculatePayment(); });
+    elements.initialPaymentInput.addEventListener("input", () => { syncInputToRange(elements.initialPaymentInput, elements.initialPayment); calculatePayment(); });
+    elements.termLengthInput.addEventListener("input", () => { syncInputToRange(elements.termLengthInput, elements.termLength); calculatePayment(); });
+    elements.insuranceValueInput.addEventListener("input", () => { syncInputToRange(elements.insuranceValueInput, elements.insuranceValue); calculatePayment(); });
+    elements.promotionValueInput.addEventListener("input", () => { syncInputToRange(elements.promotionValueInput, elements.promotionValue); calculatePayment(); });
 
     elements.toggleInsurance.addEventListener("click", () => {
       showInsurance = !showInsurance;
       elements.insuranceSlider.classList.toggle("hidden", !showInsurance);
-      elements.toggleInsurance.textContent = showInsurance
-        ? "Remove Insurance Benefit"
-        : "Add Insurance Benefit";
+      elements.toggleInsurance.textContent = showInsurance ? "Remove Insurance Benefit" : "Add Insurance Benefit";
       calculatePayment();
     });
 
     elements.togglePromotion.addEventListener("click", () => {
       showPromotion = !showPromotion;
       elements.promotionSlider.classList.toggle("hidden", !showPromotion);
-      elements.togglePromotion.textContent = showPromotion
-        ? "Remove Promotion Benefit"
-        : "Add Promotion Benefit";
+      elements.togglePromotion.textContent = showPromotion ? "Remove Promotion Benefit" : "Add Promotion Benefit";
       calculatePayment();
     });
 
-    // Initialize
-    updateLabels();
+    calculatePayment();
   </script>
 </body>
 </html>
