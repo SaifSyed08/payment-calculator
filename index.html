@@ -3,6 +3,7 @@ Embed anywhere:
 <div id="payment-widget"></div>
 <script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
 -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,6 +70,7 @@ Embed anywhere:
       margin-top: 20px;
       display: flex;
       gap: 15px;
+      flex-wrap: wrap;
     }
 
     .custom-treatments-payment-calculator__benefit-buttons button {
@@ -86,7 +88,13 @@ Embed anywhere:
       color: #fff;
     }
 
-    .hidden { display: none; }
+    button, input, label, span, div, h2, p {
+      font-family: 'Outfit', sans-serif !important;
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 
@@ -94,7 +102,9 @@ Embed anywhere:
   <div class="custom-treatments-payment-calculator" id="calculator">
     <h2 class="custom-treatments-payment-calculator__title">Payment Calculator</h2>
     <p class="custom-treatments-payment-calculator__description">
-      Estimate your treatment cost with flexible payment options and no-interest financing.
+      Would you like to estimate your treatment cost? We offer flexible payment options
+      including low down payments and no-interest financing. Try our payment calculator
+      to find a plan right for you.
     </p>
 
     <!-- Treatment Cost -->
@@ -106,7 +116,7 @@ Embed anywhere:
       <input type="range" id="treatmentCost" min="1000" max="6000" step="100" value="5500">
     </div>
 
-    <!-- Appliance Fees (NEW) -->
+    <!-- Appliance Fees -->
     <div class="custom-treatments-payment-calculator__slider">
       <label>
         Appliance Fees: $
@@ -134,63 +144,178 @@ Embed anywhere:
       <input type="range" id="termLength" min="1" max="36" step="1" value="11">
     </div>
 
+    <!-- Insurance Benefit -->
+    <div class="custom-treatments-payment-calculator__slider hidden" id="insuranceSlider">
+      <label>
+        Insurance Benefit: $
+        <input type="number" id="insuranceValueInput" min="0" max="3000" step="100" value="500">
+      </label>
+      <input type="range" id="insuranceValue" min="0" max="3000" step="100" value="500">
+    </div>
+
+    <!-- Promotion Benefit -->
+    <div class="custom-treatments-payment-calculator__slider hidden" id="promotionSlider">
+      <label>
+        Promotion Benefit: $
+        <input type="number" id="promotionValueInput" min="0" max="2000" step="100" value="250">
+      </label>
+      <input type="range" id="promotionValue" min="0" max="2000" step="100" value="250">
+    </div>
+
     <!-- Monthly Payment -->
     <div class="custom-treatments-payment-calculator__result">
       Monthly Payment:
       <span class="custom-treatments-payment-calculator__amount" id="monthlyPayment">$0.00 / month</span>
     </div>
+
+    <!-- Buttons -->
+    <div class="custom-treatments-payment-calculator__benefit-buttons">
+      <button id="toggleInsurance">Add Insurance Benefit</button>
+      <button id="togglePromotion">Add Promotion Benefit</button>
+    </div>
   </div>
 
   <script>
-    const el = id => document.getElementById(id);
-
     const elements = {
-      treatmentCost: el("treatmentCost"),
-      treatmentCostInput: el("treatmentCostInput"),
-      applianceFees: el("applianceFees"),
-      applianceFeesInput: el("applianceFeesInput"),
-      initialPayment: el("initialPayment"),
-      initialPaymentInput: el("initialPaymentInput"),
-      termLength: el("termLength"),
-      termLengthInput: el("termLengthInput"),
-      monthlyPayment: el("monthlyPayment")
+      treatmentCost: document.getElementById("treatmentCost"),
+      treatmentCostInput: document.getElementById("treatmentCostInput"),
+
+      applianceFees: document.getElementById("applianceFees"),
+      applianceFeesInput: document.getElementById("applianceFeesInput"),
+
+      initialPayment: document.getElementById("initialPayment"),
+      initialPaymentInput: document.getElementById("initialPaymentInput"),
+
+      termLength: document.getElementById("termLength"),
+      termLengthInput: document.getElementById("termLengthInput"),
+
+      insuranceValue: document.getElementById("insuranceValue"),
+      insuranceValueInput: document.getElementById("insuranceValueInput"),
+
+      promotionValue: document.getElementById("promotionValue"),
+      promotionValueInput: document.getElementById("promotionValueInput"),
+
+      insuranceSlider: document.getElementById("insuranceSlider"),
+      promotionSlider: document.getElementById("promotionSlider"),
+      toggleInsurance: document.getElementById("toggleInsurance"),
+      togglePromotion: document.getElementById("togglePromotion"),
+      monthlyPayment: document.getElementById("monthlyPayment")
     };
 
-    const clamp = (v,min,max)=>Math.min(Math.max(v,min),max);
+    let showInsurance = false;
+    let showPromotion = false;
 
-    function syncRangeToInput(range,input){ input.value = range.value; }
-    function syncInputToRange(input,range){
-      input.value = clamp(input.value, range.min, range.max);
+    function clamp(value, min, max) {
+      const num = parseFloat(value);
+      if (isNaN(num)) return min;
+      return Math.min(Math.max(num, min), max);
+    }
+
+    function syncRangeToInput(range, input) {
+      input.value = range.value;
+    }
+
+    function syncInputToRange(input, range) {
+      const min = parseFloat(range.min);
+      const max = parseFloat(range.max);
+      input.value = clamp(input.value, min, max);
       range.value = input.value;
     }
 
-    function calculatePayment(){
-      const treatment = +elements.treatmentCost.value;
-      const appliance = +elements.applianceFees.value;
-      const down = +elements.initialPayment.value;
-      const months = +elements.termLength.value;
+    function calculatePayment() {
+      const treatmentCost = parseFloat(elements.treatmentCost.value) || 0;
+      const applianceFees = parseFloat(elements.applianceFees.value) || 0;
+      const initialPayment = parseFloat(elements.initialPayment.value) || 0;
+      const termLength = parseInt(elements.termLength.value) || 0;
 
-      const total = treatment + appliance;
-      const net = total - down;
-      const monthly = months>0 ? Math.max(net/months,0) : 0;
+      const insuranceValue = showInsurance ? (parseFloat(elements.insuranceValue.value) || 0) : 0;
+      const promotionValue = showPromotion ? (parseFloat(elements.promotionValue.value) || 0) : 0;
+
+      const totalCost = treatmentCost + applianceFees;
+      const netCost = totalCost - initialPayment - insuranceValue - promotionValue;
+      const monthly = termLength > 0 ? Math.max(netCost / termLength, 0) : 0;
 
       elements.monthlyPayment.textContent = `$${monthly.toFixed(2)} / month`;
     }
 
     // Range → Input
-    ["treatmentCost","applianceFees","initialPayment","termLength"].forEach(id=>{
-      elements[id].addEventListener("input",()=>{
-        syncRangeToInput(elements[id], elements[id+"Input"]);
-        calculatePayment();
-      });
+    elements.treatmentCost.addEventListener("input", () => {
+      syncRangeToInput(elements.treatmentCost, elements.treatmentCostInput);
+      calculatePayment();
+    });
+
+    elements.applianceFees.addEventListener("input", () => {
+      syncRangeToInput(elements.applianceFees, elements.applianceFeesInput);
+      calculatePayment();
+    });
+
+    elements.initialPayment.addEventListener("input", () => {
+      syncRangeToInput(elements.initialPayment, elements.initialPaymentInput);
+      calculatePayment();
+    });
+
+    elements.termLength.addEventListener("input", () => {
+      syncRangeToInput(elements.termLength, elements.termLengthInput);
+      calculatePayment();
+    });
+
+    elements.insuranceValue.addEventListener("input", () => {
+      syncRangeToInput(elements.insuranceValue, elements.insuranceValueInput);
+      calculatePayment();
+    });
+
+    elements.promotionValue.addEventListener("input", () => {
+      syncRangeToInput(elements.promotionValue, elements.promotionValueInput);
+      calculatePayment();
     });
 
     // Input → Range
-    ["treatmentCost","applianceFees","initialPayment","termLength"].forEach(id=>{
-      elements[id+"Input"].addEventListener("input",()=>{
-        syncInputToRange(elements[id+"Input"], elements[id]);
-        calculatePayment();
-      });
+    elements.treatmentCostInput.addEventListener("input", () => {
+      syncInputToRange(elements.treatmentCostInput, elements.treatmentCost);
+      calculatePayment();
+    });
+
+    elements.applianceFeesInput.addEventListener("input", () => {
+      syncInputToRange(elements.applianceFeesInput, elements.applianceFees);
+      calculatePayment();
+    });
+
+    elements.initialPaymentInput.addEventListener("input", () => {
+      syncInputToRange(elements.initialPaymentInput, elements.initialPayment);
+      calculatePayment();
+    });
+
+    elements.termLengthInput.addEventListener("input", () => {
+      syncInputToRange(elements.termLengthInput, elements.termLength);
+      calculatePayment();
+    });
+
+    elements.insuranceValueInput.addEventListener("input", () => {
+      syncInputToRange(elements.insuranceValueInput, elements.insuranceValue);
+      calculatePayment();
+    });
+
+    elements.promotionValueInput.addEventListener("input", () => {
+      syncInputToRange(elements.promotionValueInput, elements.promotionValue);
+      calculatePayment();
+    });
+
+    elements.toggleInsurance.addEventListener("click", () => {
+      showInsurance = !showInsurance;
+      elements.insuranceSlider.classList.toggle("hidden", !showInsurance);
+      elements.toggleInsurance.textContent = showInsurance
+        ? "Remove Insurance Benefit"
+        : "Add Insurance Benefit";
+      calculatePayment();
+    });
+
+    elements.togglePromotion.addEventListener("click", () => {
+      showPromotion = !showPromotion;
+      elements.promotionSlider.classList.toggle("hidden", !showPromotion);
+      elements.togglePromotion.textContent = showPromotion
+        ? "Remove Promotion Benefit"
+        : "Add Promotion Benefit";
+      calculatePayment();
     });
 
     calculatePayment();
