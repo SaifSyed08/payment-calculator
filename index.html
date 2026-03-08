@@ -1,9 +1,3 @@
-<!-- 
-Embed anywhere:
-<div id="payment-widget"></div>
-<script src="https://saifsyed08.github.io/payment-calculator/widget.js"></script>
--->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,14 +67,17 @@ Embed anywhere:
       flex-wrap: wrap;
     }
 
+    /* Bigger Buttons */
     .custom-treatments-payment-calculator__benefit-buttons button {
       background-color: #fff;
       border: 2px solid #e54b2c;
       color: #e54b2c;
-      padding: 6px 12px;
+      padding: 12px 22px;
+      font-size: 1rem;
       cursor: pointer;
       transition: all 0.2s ease;
-      font-weight: 600;
+      font-weight: 700;
+      border-radius: 6px;
     }
 
     .custom-treatments-payment-calculator__benefit-buttons button:hover {
@@ -111,9 +108,9 @@ Embed anywhere:
     <div class="custom-treatments-payment-calculator__slider">
       <label>
         Treatment Cost: $
-        <input type="number" id="treatmentCostInput" min="1000" max="6000" step="100" value="5500">
+        <input type="number" id="treatmentCostInput" min="0" max="6000" step="100" value="5500">
       </label>
-      <input type="range" id="treatmentCost" min="1000" max="6000" step="100" value="5500">
+      <input type="range" id="treatmentCost" min="0" max="6000" step="100" value="5500">
     </div>
 
     <!-- Appliance Fees -->
@@ -138,14 +135,14 @@ Embed anywhere:
     <div class="custom-treatments-payment-calculator__slider">
       <label>
         Term Length:
-        <input type="number" id="termLengthInput" min="1" max="36" step="1" value="11">
+        <input type="number" id="termLengthInput" min="0" max="36" step="1" value="11">
         months
       </label>
-      <input type="range" id="termLength" min="1" max="36" step="1" value="11">
+      <input type="range" id="termLength" min="0" max="36" step="1" value="11">
     </div>
 
-    <!-- Insurance Benefit -->
-    <div class="custom-treatments-payment-calculator__slider hidden" id="insuranceSlider">
+    <!-- Insurance Benefit (Always Visible) -->
+    <div class="custom-treatments-payment-calculator__slider" id="insuranceSlider">
       <label>
         Insurance Benefit: $
         <input type="number" id="insuranceValueInput" min="0" max="3000" step="100" value="500">
@@ -153,7 +150,7 @@ Embed anywhere:
       <input type="range" id="insuranceValue" min="0" max="3000" step="100" value="500">
     </div>
 
-    <!-- Promotion Benefit -->
+    <!-- Promotion Benefit (Toggle) -->
     <div class="custom-treatments-payment-calculator__slider hidden" id="promotionSlider">
       <label>
         Promotion Benefit: $
@@ -170,7 +167,6 @@ Embed anywhere:
 
     <!-- Buttons -->
     <div class="custom-treatments-payment-calculator__benefit-buttons">
-      <button id="toggleInsurance">Add Insurance Benefit</button>
       <button id="togglePromotion">Add Promotion Benefit</button>
     </div>
   </div>
@@ -195,14 +191,11 @@ Embed anywhere:
       promotionValue: document.getElementById("promotionValue"),
       promotionValueInput: document.getElementById("promotionValueInput"),
 
-      insuranceSlider: document.getElementById("insuranceSlider"),
       promotionSlider: document.getElementById("promotionSlider"),
-      toggleInsurance: document.getElementById("toggleInsurance"),
       togglePromotion: document.getElementById("togglePromotion"),
       monthlyPayment: document.getElementById("monthlyPayment")
     };
 
-    let showInsurance = false;
     let showPromotion = false;
 
     function clamp(value, min, max) {
@@ -227,8 +220,7 @@ Embed anywhere:
       const applianceFees = parseFloat(elements.applianceFees.value) || 0;
       const initialPayment = parseFloat(elements.initialPayment.value) || 0;
       const termLength = parseInt(elements.termLength.value) || 0;
-
-      const insuranceValue = showInsurance ? (parseFloat(elements.insuranceValue.value) || 0) : 0;
+      const insuranceValue = parseFloat(elements.insuranceValue.value) || 0;
       const promotionValue = showPromotion ? (parseFloat(elements.promotionValue.value) || 0) : 0;
 
       const totalCost = treatmentCost + applianceFees;
@@ -239,74 +231,23 @@ Embed anywhere:
     }
 
     // Range → Input
-    elements.treatmentCost.addEventListener("input", () => {
-      syncRangeToInput(elements.treatmentCost, elements.treatmentCostInput);
-      calculatePayment();
-    });
-
-    elements.applianceFees.addEventListener("input", () => {
-      syncRangeToInput(elements.applianceFees, elements.applianceFeesInput);
-      calculatePayment();
-    });
-
-    elements.initialPayment.addEventListener("input", () => {
-      syncRangeToInput(elements.initialPayment, elements.initialPaymentInput);
-      calculatePayment();
-    });
-
-    elements.termLength.addEventListener("input", () => {
-      syncRangeToInput(elements.termLength, elements.termLengthInput);
-      calculatePayment();
-    });
-
-    elements.insuranceValue.addEventListener("input", () => {
-      syncRangeToInput(elements.insuranceValue, elements.insuranceValueInput);
-      calculatePayment();
-    });
-
-    elements.promotionValue.addEventListener("input", () => {
-      syncRangeToInput(elements.promotionValue, elements.promotionValueInput);
-      calculatePayment();
+    Object.entries(elements).forEach(([key, el]) => {
+      if (el && el.type === "range") {
+        el.addEventListener("input", () => {
+          syncRangeToInput(el, elements[key + "Input"]);
+          calculatePayment();
+        });
+      }
     });
 
     // Input → Range
-    elements.treatmentCostInput.addEventListener("input", () => {
-      syncInputToRange(elements.treatmentCostInput, elements.treatmentCost);
-      calculatePayment();
-    });
-
-    elements.applianceFeesInput.addEventListener("input", () => {
-      syncInputToRange(elements.applianceFeesInput, elements.applianceFees);
-      calculatePayment();
-    });
-
-    elements.initialPaymentInput.addEventListener("input", () => {
-      syncInputToRange(elements.initialPaymentInput, elements.initialPayment);
-      calculatePayment();
-    });
-
-    elements.termLengthInput.addEventListener("input", () => {
-      syncInputToRange(elements.termLengthInput, elements.termLength);
-      calculatePayment();
-    });
-
-    elements.insuranceValueInput.addEventListener("input", () => {
-      syncInputToRange(elements.insuranceValueInput, elements.insuranceValue);
-      calculatePayment();
-    });
-
-    elements.promotionValueInput.addEventListener("input", () => {
-      syncInputToRange(elements.promotionValueInput, elements.promotionValue);
-      calculatePayment();
-    });
-
-    elements.toggleInsurance.addEventListener("click", () => {
-      showInsurance = !showInsurance;
-      elements.insuranceSlider.classList.toggle("hidden", !showInsurance);
-      elements.toggleInsurance.textContent = showInsurance
-        ? "Remove Insurance Benefit"
-        : "Add Insurance Benefit";
-      calculatePayment();
+    Object.entries(elements).forEach(([key, el]) => {
+      if (el && el.type === "number") {
+        el.addEventListener("input", () => {
+          syncInputToRange(el, elements[key.replace("Input","")]);
+          calculatePayment();
+        });
+      }
     });
 
     elements.togglePromotion.addEventListener("click", () => {
